@@ -13,6 +13,14 @@ const reducer = (state = initialState, action) => {
         ...state,
         likes: state.likes + 1,
       };
+    case "DECREMENT":
+      if (state.likes === 0) {
+        return;
+      }
+      return {
+        ...state,
+        likes: state.likes - 1,
+      };
     default:
       return state;
   }
