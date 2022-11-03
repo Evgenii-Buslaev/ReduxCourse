@@ -1,10 +1,32 @@
-function SingleComment(props) {
-  console.log("singleComment props >", props);
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { commentUpdate } from "../redux/actions";
+
+function SingleComment({ data }) {
+  const [commentText, setCommentText] = useState("");
+  const { text, id } = data;
+
+  const dispatch = useDispatch();
+
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    dispatch(commentUpdate(commentText, id));
+  };
+
+  useEffect(() => {
+    if (text) {
+      setCommentText(text);
+    }
+  }, [text]);
+
+  const handleInput = (e) => {
+    setCommentText(e.target.value);
+  };
 
   return (
-    <form className="comments-item">
+    <form className="comments-item" onSubmit={handleUpdate}>
       <div className="comments-item-delete">&times;</div>
-      <input type="text"></input>
+      <input type="text" value={commentText} onChange={handleInput}></input>
       <input type="submit" hidden />
     </form>
   );
