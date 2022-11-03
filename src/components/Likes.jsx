@@ -1,11 +1,20 @@
-function Likes({ likes }) {
-  console.log(likes);
+import { connect } from "react-redux";
+
+function Likes(props) {
+  console.log(props);
   return (
     <div className="button-controls">
-      <button>❤ {likes}</button>
+      <button>❤ {props.likes}</button>
       <button>Dislike</button>
     </div>
   );
 }
 
-export default Likes;
+function mapStateToProps(state) {
+  console.log("mapStateToProps > ", state);
+  return {
+    likes: state.likes,
+  };
+}
+
+export default connect(mapStateToProps)(Likes);
